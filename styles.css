@@ -1,0 +1,43 @@
+
+body {
+    background-color: black;
+}
+
+#container {
+    display: flex; /* or inline-flex */
+    justify-content: center;
+    gap: 150px;
+  }
+
+button {
+    margin-top: 200px;
+    margin-bottom: 100px;
+    border-width: thick;
+  }
+
+button:active {
+    transform: scale(0.98);
+    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+}
+
+img {
+    width: 200px;
+    height: 200px;
+}
+
+ h1,p {
+    display:flex;
+    justify-content: center;
+}
+
+#resultGame {
+    display:flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+
+p {
+    margin-top: 30px;
+    font-size: x-large;
+}

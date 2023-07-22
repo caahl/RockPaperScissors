@@ -1,50 +1,63 @@
             function computerPlay(){
-                // choose random number from 0 to 2
                 index = Math.floor(Math.random() * 3)
-                // create a list with options of plays
                 plays = ["rock", "paper", "scissors"]
-                // returns a random play
                 return plays[index] 
             }
         
             function playRound(playerSelection, computerSelection){
                 if (playerSelection === computerSelection){
-                    return "It's a tie!"
+                    return 0;
                 } 
                 
                 switch(true) {
                     case playerSelection == 'rock' && computerSelection === 'scissors':
                     case playerSelection == 'paper' && computerSelection == 'rock':
                     case playerSelection == 'scissors' && computerSelection == 'paper':
-                        return `God bless! You won! ${playerSelection} beats ${computerSelection}`;
-                        break;
+                        return 1;
         
                     default:
-                        return `Fatality! You lose! ${computerSelection} beats ${playerSelection}`;
-                        break;
+                        return -1;
                 }
+            }
+
+            function reset() {
+                playerScore = 0;
+                computerScore = 0;
             }
         
             function game(){
-                // game starts with player with 0 points
-                playerScore = 0
-                
-                // the game lasts 5 rounds
-                for (let i = 0; i < 5; i++){
-                    playerSelection = prompt("Choose rock, paper or scissors")
+                playerScore = 0;
+                computerScore = 0;
+
+                const buttons = document.querySelectorAll('button');
+
+                buttons.forEach((button) => {
+                button.addEventListener('click', () => {
+                    
+                    playerSelection = button.id;
                     computerSelection = computerPlay()
-        
+                    
                     res = playRound(playerSelection, computerSelection)
-                    console.log(res)
-        
-                    playerScore += res[0] == 'Y' ? 1 : res[0] == 'D' ? 0 : -1         
-                }
-        
-                if (playerScore > 0){
-                    console.log('You won the game')
-                } else if (playerScore == 0){
-                    console.log('It was a tie')
-                } else {
-                    console.log('You lost the game')
-                }
+                    res == 1 ? playerScore++ : res == -1 ? computerScore++ : null;
+
+
+                    const resultText = document.querySelector('#resultText');
+                    resultText.textContent = res == 1 ? `You won, ${playerSelection} beats ${computerSelection}` : res == -1 ? `You lost, ${computerSelection} beats ${playerSelection}` : "It's a tie!";
+                    
+                    if(computerScore >= 5) {
+                        alert("You lost the game!");
+                        reset();
+                        
+                    } else if(playerScore >= 5) {
+                        alert("Congratulations! You won the game!");
+                        reset();
+                    }
+
+                    const score = document.querySelector('#score');
+                    score.textContent = playerScore + ' - ' + computerScore;
+
+                    });
+                });
             }
+
+            game()
